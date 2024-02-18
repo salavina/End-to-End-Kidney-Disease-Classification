@@ -1,5 +1,5 @@
 AUGMENTATION: True
-IMAGE_SIZE: (3, 224, 224) # as per VGG 16 model
+IMAGE_SIZE: [3, 224, 224] # as per VGG 16 model
 BATCH_SIZE: 16
 INCLUDE_TOP: False
 EPOCHS: 1
