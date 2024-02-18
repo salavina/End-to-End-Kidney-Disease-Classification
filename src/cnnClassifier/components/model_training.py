@@ -277,4 +277,41 @@ class Training(object):
         history = pd.DataFrame(
             history,
             columns=['train_loss', 'valid_loss', 'train_acc', 'valid_acc'])
+        
+        self.save_checkpoint(self.model)
         return self.model, history
+    
+    def save_checkpoint(self, model, multi_gpu=False):
+        """Save a PyTorch model checkpoint
+
+        Params
+        --------
+            model (PyTorch model): model to save
+            path (str): location to save model. Must start with `model_name-` and end in '.pth'
+
+        Returns
+        --------
+            None, save the `model` to `path`
+
+        """
+
+        # Basic details
+        checkpoint = {
+            'epochs': model.epochs
+        }
+
+        # Extract the final classifier and the state dictionary
+        # Check to see if model was parallelized
+        if multi_gpu:
+            checkpoint['classifier'] = model.module.classifier
+            checkpoint['state_dict'] = model.module.state_dict()
+        else:
+            checkpoint['classifier'] = model.classifier
+            checkpoint['state_dict'] = model.state_dict()
+
+        # Add the optimizer
+        checkpoint['optimizer'] = model.optimizer
+        checkpoint['optimizer_state_dict'] = model.optimizer.state_dict()
+
+        # Save the data to the path
+        torch.save(checkpoint, self.config.trained_model_path)
