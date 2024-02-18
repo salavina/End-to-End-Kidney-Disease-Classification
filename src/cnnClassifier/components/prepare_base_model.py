@@ -44,13 +44,13 @@ class PrepareBaseModel:
             freeze_till=None
         )
         self.full_model = self.full_model.to(self.config.params_device)
-        optimizer_top = torch.optim.Adam(self.full_model.parameters(), lr=self.config.params_learning_rate)
-        checkpoint = {'model_state_dict': self.full_model.state_dict(),
-                        'optimizer_state_dict': optimizer_top.state_dict()}
+        # optimizer_top = torch.optim.Adam(self.full_model.parameters(), lr=self.config.params_learning_rate)
+        # checkpoint = {'model_state_dict': self.full_model.state_dict(),
+        #                 'optimizer_state_dict': optimizer_top.state_dict()}
         summary(self.full_model, input_size=tuple(self.config.params_image_size), batch_size=self.config.params_batch_size, device=self.config.params_device)
-        self.save_model(checkpoint=checkpoint, path=self.config.updated_base_model_path)
+        self.save_model(checkpoint=self.full_model, path=self.config.updated_base_model_path)
 
     
     @staticmethod
-    def save_model(path: Path, checkpoint: dict):
+    def save_model(path: Path, checkpoint: torch.nn.Module):
         torch.save(checkpoint, path)
