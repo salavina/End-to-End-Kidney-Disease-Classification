@@ -92,6 +92,7 @@ class ConfigurationManager:
             training_data = 'artifacts/data_ingestion/kidney-ct-scan-image',
             all_params = self.params,
             mlflow_uri = MLFLOW_TRACKING_URI,
+            params_is_augmentation=self.params.AUGMENTATION,
             params_image_size = self.params.IMAGE_SIZE,
             params_batch_size = self.params.BATCH_SIZE
         )

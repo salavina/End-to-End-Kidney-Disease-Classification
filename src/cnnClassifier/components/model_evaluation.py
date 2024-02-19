@@ -69,8 +69,12 @@ class Evaluation:
         }
         self.dataset = ImageFolder(root=self.config.training_data)
         train, val = torch.utils.data.random_split(self.dataset, [0.8, 0.2], generator=torch.Generator().manual_seed(42))
-        traindataset = MyLazyDataset(train, transform=image_transforms['train'])
-        valdataset = MyLazyDataset(val, transform=image_transforms['val'])
+        if self.config.params_is_augmentation:
+            traindataset = MyLazyDataset(train, transform=image_transforms['train'])
+            valdataset = MyLazyDataset(val, transform=image_transforms['val'])
+        else:
+            traindataset = MyLazyDataset(train, transform=image_transforms['val'])
+            valdataset = MyLazyDataset(val, transform=image_transforms['val'])
         trainLoader = DataLoader(traindataset , batch_size=self.config.params_batch_size, shuffle=True)
         valLoader = DataLoader(valdataset, batch_size=self.config.params_batch_size)
         
