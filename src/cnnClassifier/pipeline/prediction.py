@@ -16,7 +16,7 @@ class PredictionPipeline:
             transforms.ToTensor(),
             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ])
-        self.model = self.load_model(os.path.join("artifacts", "training", "model.pth"))  # Replace with your model path
+        self.model = self.load_model(os.path.join("model", "model.pth"))  # Replace with your model path
         self.filename = filename
     
     @staticmethod
