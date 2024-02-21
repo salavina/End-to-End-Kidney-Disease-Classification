@@ -3,7 +3,6 @@ torch
 torchvision
 torchaudio
 torchsummary
-timeit
 pandas
 dvc
 mlflow==2.2.2
