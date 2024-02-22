@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Kidney-Disease-Classification-MLflow-DVC
 
 
