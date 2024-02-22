@@ -204,8 +204,3 @@ docker push kidney.azurecr.io/kidney:latest
 2. Push the Docker image to Container Registry
 3. Launch the Web App Server in Azure 
 4. Pull the Docker image from the container registry to Web App server and run 
-=======
->>>>>>> b6f805a (Initial commit)
-=======
-# End-to-End-Kidney-Disease-Classification
->>>>>>> 69ec108 (Initial commit)
