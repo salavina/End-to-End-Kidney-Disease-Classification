@@ -22,7 +22,7 @@ class PredictionPipeline:
     
     @staticmethod
     def load_model(path: Path, device) -> torch.nn.Module:
-        checkpoint = torch.load(path)
+        checkpoint = torch.load(path, map_location=device)
         model = models.vgg16(pretrained=True)
         model.eval()  # Set the model to evaluation mode
         model.classifier = checkpoint['classifier']
