@@ -16,18 +16,19 @@ class PredictionPipeline:
             transforms.ToTensor(),
             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ])
-        self.model = self.load_model(os.path.join("model", "model.pth"))  # Replace with your model path
+        self.device = torch.device("cpu")
+        self.model = self.load_model(os.path.join("model", "model.pth"), self.device)  # Replace with your model path
         self.filename = filename
     
     @staticmethod
-    def load_model(path: Path) -> torch.nn.Module:
+    def load_model(path: Path, device) -> torch.nn.Module:
         checkpoint = torch.load(path)
         model = models.vgg16(pretrained=True)
         model.eval()  # Set the model to evaluation mode
         model.classifier = checkpoint['classifier']
         # Load in the state dict
         model.load_state_dict(checkpoint['state_dict'])
-        model = model.to('cuda')
+        model = model.to(device)
         return model
 
     def preprocess_image(self):
@@ -39,7 +40,7 @@ class PredictionPipeline:
     def predict(self):
         # Preprocess the image
         image = self.preprocess_image()
-        image = image.to('cuda')
+        image = image.to(self.device)
         # Predict the class
         with torch.no_grad():
             outputs = self.model(image)
