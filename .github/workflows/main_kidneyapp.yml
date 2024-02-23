@@ -23,14 +23,14 @@ jobs:
       uses: docker/login-action@v2
       with:
         registry: https://kidney.azurecr.io/
-        username: ${{ secrets.AzureAppService_ContainerUsername_dd5139299f7c4ae0bf2fd4252c46218c }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_add825ff61834474968215c914d81027 }}
+        username: ${{ secrets.AzureAppService_ContainerUsername_4c7a25d3593c430b8f7ea302e9de4efa }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_026143634fc744529899ba3d64698fa6 }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: kidney.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_dd5139299f7c4ae0bf2fd4252c46218c }}/kidney:${{ github.sha }}
+        tags: kidney.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_4c7a25d3593c430b8f7ea302e9de4efa }}/kidney:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'kidneyapp'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_3236e35b2ac84367b527dd60528079ba }}
-        images: 'kidney.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_dd5139299f7c4ae0bf2fd4252c46218c }}/kidney:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_9bfaaa5a8da54553a464cf332daa747b }}
+        images: 'kidney.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_4c7a25d3593c430b8f7ea302e9de4efa }}/kidney:${{ github.sha }}'
